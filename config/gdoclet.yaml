@@ -1,0 +1,9 @@
+cache:
+  enabled: true
+  expires_in: 60
+  flush_resource_id: document:document_id_123
+  store: memory
+  # store: memcache
+  
+debug: true
+  

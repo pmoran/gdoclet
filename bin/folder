@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH << File.expand_path('../../lib', __FILE__)
+
+require 'gdoclet'
+require 'nokogiri'
+
+session = GDoclet::Session.login
+query = session.folder_query
+folder = query.by_title(ARGV[0])
+result = query.contents(folder.resource_id)
+doc = Nokogiri::XML(result)
+puts "Contents of folder #{folder.title} #{folder.resource_id}"
+doc.xpath("//xmlns:entry").each do |e|
+  puts "title: #{e.xpath('xmlns:title').text}, resourceId: #{e.xpath('gd:resourceId').text}"
+end

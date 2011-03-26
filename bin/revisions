@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH << File.expand_path('../../lib', __FILE__)
+require 'gdoclet'
+
+session = GDoclet::Session.login
+revisions_query = session.revisions_query
+puts revisions_query.by_id(ARGV[0]).xml

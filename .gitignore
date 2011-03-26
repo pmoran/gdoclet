@@ -1,0 +1,6 @@
+.bundle
+.DS_Store
+output.xml
+oauth.yaml
+coverage
+gdoclet*.gem
