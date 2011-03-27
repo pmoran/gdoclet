@@ -21,12 +21,12 @@ module GDoclet
     private
 
       def config
-        @config ||= load_config
+        @config ||= load
       end
 
-      def load_config
+      def load
         config_file = File.expand_path(File.join("config", "gdoclet.yaml"))
-        puts "****loading config from #{config_file}"
+        log "loading config from #{config_file}"
         config = YAML.load_file(config_file)
         config["oauth"] = load_oauth
         config
@@ -35,7 +35,7 @@ module GDoclet
       def load_oauth
         oauth_file = File.expand_path(File.join("config", "oauth.yaml"))
         if File.exists?(oauth_file)
-          puts "****loading oauth from #{oauth_file}"
+          log "loading oauth from #{oauth_file}"
           YAML.load_file(oauth_file)
         else
           oauth = {}
@@ -44,6 +44,10 @@ module GDoclet
           oauth
         end
       end
+      
+      def log(msg)
+        puts "****#{msg}"
+      end      
 
   end
 

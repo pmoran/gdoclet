@@ -3,8 +3,12 @@ require 'spec_helper'
 describe GDoclet::DocumentListEntry do
 
   before(:each) do
-    xml = File.read("spec/fixtures/document.xml")
-    @document = GDoclet::DocumentListEntry.new(xml)
+    @xml = File.read("spec/fixtures/document.xml")
+    @document = GDoclet::DocumentListEntry.new(@xml)
+  end
+
+  it "should provide xml" do
+    @document.xml.should == @xml
   end
 
   it "should provide a title" do

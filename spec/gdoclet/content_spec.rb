@@ -2,11 +2,6 @@ require 'spec_helper'
 
 describe GDoclet::Content do
 
-  def fake_get(url, body)
-    url = URI.escape("https://docs.google.com#{url}")
-    FakeWeb.register_uri(:get, url, :body => body)
-  end
-
   context "#for" do
 
     before(:each) do

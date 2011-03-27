@@ -5,9 +5,10 @@ $LOAD_PATH << File.expand_path('../../lib', __FILE__)
 require 'gdoclet'
 require 'nokogiri'
 
-session = GDoclet::Session.login
+session = GDoclet::Session.login(debug: true)
 query = session.folder_query
 folder = query.by_title(ARGV[0])
+puts folder.xml
 result = query.contents(folder.resource_id)
 doc = Nokogiri::XML(result)
 puts "Contents of folder #{folder.title} #{folder.resource_id}"

@@ -12,3 +12,8 @@ require 'sinatra/gdoclet_helper'
 RSpec.configure do |config|
 
 end
+
+def fake_get(url, body)
+  url = URI.escape("https://docs.google.com#{url}")
+  FakeWeb.register_uri(:get, url, :body => body)
+end

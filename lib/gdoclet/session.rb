@@ -48,6 +48,7 @@ module GDoclet
       uri = URI.escape(authorise_feed(feed))
       log(uri)
       get = @access_token.get(uri, VERSION_INFO)
+      write_out(get.body)
       get
     end
 
@@ -63,7 +64,7 @@ module GDoclet
       end
 
       def write_out(str)
-        File.open("output.xml", 'w') {|f| f.write(str)} if @debug
+        File.open("output.xml", 'w') {|f| f.write(str)}
       end
 
   end
