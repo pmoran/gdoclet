@@ -4,7 +4,7 @@ require 'spec_helper'
 describe GDoclet::Session do
   
   before(:each) do
-    GDoclet::Session.stub!("load_oauth").and_return({})
+    GDoclet::Config.instance.stub!("load_oauth").and_return({})
     @session = GDoclet::Session.login
   end
   

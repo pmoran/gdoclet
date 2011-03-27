@@ -28,12 +28,21 @@ module GDoclet
         config_file = File.expand_path(File.join("config", "gdoclet.yaml"))
         puts "****loading config from #{config_file}"
         config = YAML.load_file(config_file)
+        config["oauth"] = load_oauth
+        config
+      end
+
+      def load_oauth
         oauth_file = File.expand_path(File.join("config", "oauth.yaml"))
         if File.exists?(oauth_file)
           puts "****loading oauth from #{oauth_file}"
-          config["oauth"] = YAML.load_file(oauth_file)
+          YAML.load_file(oauth_file)
+        else
+          oauth = {}
+          %w(consumer_key consumer_secret admin_userid).each { |key| oauth[key] = ENV[key.upcase] if ENV[key.upcase] }
+          raise "#{self.class} Couldn't load oauth configuration" if oauth.empty?
+          oauth
         end
-        config
       end
 
   end

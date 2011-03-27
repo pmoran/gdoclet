@@ -12,7 +12,7 @@ module GDoclet
     class << self
 
       def login(options = {})
-        oauth = load_oauth
+        oauth = Config["oauth"]
         consumer = OAuth::Consumer.new(oauth["consumer_key"], oauth["consumer_secret"],
                                        :site => "https://docs.google.com",
                                        :request_token_path => "/oauth/request_token",
@@ -22,14 +22,6 @@ module GDoclet
 
         # consumer.http.set_debug_output($stderr) if options[:debug]
         new(OAuth::AccessToken.new(consumer), oauth["admin_userid"], options[:debug])
-      end
-
-      def load_oauth
-        return GDoclet::Config["oauth"] if GDoclet::Config["oauth"]
-        oauth = {}
-        %w(consumer_key consumer_secret admin_userid).each { |key| oauth[key] = ENV[key.upcase] if ENV[key.upcase] }
-        raise "#{self.name} Couldn't load configuration" if oauth.empty?
-        oauth
       end
 
     end
@@ -63,8 +55,6 @@ module GDoclet
       feed =~ /\?/ ? feed << "&" : feed << "?"
       "#{feed}xoauth_requestor_id=#{@admin_userid}"
     end
-
-    private_class_method :load_oauth
 
     private
 

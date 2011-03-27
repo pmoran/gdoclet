@@ -10,7 +10,7 @@ describe GDoclet::Content do
   context "#for" do
 
     before(:each) do
-      GDoclet::Session.stub!("load_oauth").and_return({})
+      GDoclet::Config.instance.stub!("load_oauth").and_return({})
     end
 
     context "missing content" do

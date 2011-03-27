@@ -4,7 +4,7 @@ require 'fakeweb'
 describe GDoclet::DocumentQuery do
 
   before(:each) do
-    GDoclet::Session.stub!("load_oauth").and_return({})
+    GDoclet::Config.instance.stub!("load_oauth").and_return({})
     session = GDoclet::Session.login(debug: true)
     @query = session.document_query
   end
@@ -20,7 +20,7 @@ describe GDoclet::DocumentQuery do
     end
 
   end
-  
+
   context "#by_id" do
 
     it "should return a document" do
@@ -30,7 +30,7 @@ describe GDoclet::DocumentQuery do
       document.should be_a_kind_of(GDoclet::DocumentListEntry)
       document.resource_id.should == "document:12345"
     end
-    
+
     it "should error if no id provided" do
       lambda {document = @query.by_id(nil)}.should raise_error(GDoclet::ApiError)
     end
