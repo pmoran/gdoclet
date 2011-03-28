@@ -1,9 +1,8 @@
 cache:
   enabled: true
-  expires_in: 60
-  flush_resource_id: document:document_id_123
-  store: memory
-  # store: memcache
+  expires_in: 60   # seconds, defaults to 300. Ignored when memory cache store used
+  flush_resource_id: document:123456
+  store: memory   # possible values are 'memory' and 'memcached'
   
 debug: true
   

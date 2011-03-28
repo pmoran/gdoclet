@@ -2,10 +2,6 @@ require 'spec_helper'
 
 describe GDoclet::Cache do
 
-  before(:each) do
-    GDoclet::Config.instance.stub!("load_oauth").and_return({})
-  end
-
   it "should set and get some content" do
     GDoclet::Cache.instance.set(123, "foo")
     GDoclet::Cache.instance.get(123).should == "foo"
