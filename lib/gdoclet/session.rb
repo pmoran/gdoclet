@@ -23,7 +23,7 @@ module GDoclet
         # consumer.http.set_debug_output($stderr) if options[:debug]
         new(OAuth::AccessToken.new(consumer), oauth["admin_userid"], options[:debug])
       end
-
+      
     end
 
     def initialize(access_token, admin_userid, debug = false)
@@ -47,9 +47,7 @@ module GDoclet
     def get(feed)
       uri = URI.escape(authorise_feed(feed))
       log(uri)
-      get = @access_token.get(uri, VERSION_INFO)
-      write_out(get.body)
-      get
+      @access_token.get(uri, VERSION_INFO)
     end
 
     def authorise_feed(feed)
@@ -57,14 +55,14 @@ module GDoclet
       "#{feed}xoauth_requestor_id=#{@admin_userid}"
     end
 
+    def write_out(str)
+      File.open("output.xml", 'w') {|f| f.write(str)}
+    end
+
     private
 
       def log(msg)
         puts "****#{self.class} GET #{msg}" if @debug
-      end
-
-      def write_out(str)
-        File.open("output.xml", 'w') {|f| f.write(str)}
       end
 
   end

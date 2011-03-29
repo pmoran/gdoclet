@@ -7,11 +7,10 @@ require 'nokogiri'
 
 session = GDoclet::Session.login(debug: true)
 query = session.folder_query
-folder = query.by_title(ARGV[0])
-puts folder.xml
-result = query.contents(folder.resource_id)
+folder_feed = query.by_title(ARGV[0])
+result = query.contents(folder_feed.resource_id)
 doc = Nokogiri::XML(result)
-puts "Contents of folder #{folder.title} #{folder.resource_id}"
+puts "Contents of folder #{folder_feed.title} #{folder_feed.resource_id}"
 doc.xpath("//xmlns:entry").each do |e|
   puts "title: #{e.xpath('xmlns:title').text}, resourceId: #{e.xpath('gd:resourceId').text}"
 end
