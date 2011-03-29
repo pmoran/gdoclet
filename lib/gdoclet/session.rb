@@ -46,8 +46,9 @@ module GDoclet
 
     def get(feed)
       uri = URI.escape(authorise_feed(feed))
-      log(uri)
-      @access_token.get(uri, VERSION_INFO)
+      get = @access_token.get(uri, VERSION_INFO)
+      log("uri #{uri}. response #{get}")
+      get
     end
 
     def authorise_feed(feed)
