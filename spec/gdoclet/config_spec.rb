@@ -2,10 +2,6 @@ require 'spec_helper'
 
 describe GDoclet::Config do
 
-  before(:each) do
-    GDoclet::Config.instance.stub!("load_oauth").and_return({})
-  end
-
   it "should be a singleton" do
     GDoclet::Config.instance.should == GDoclet::Config.instance
   end
